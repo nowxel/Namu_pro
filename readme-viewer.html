@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Sandman and the War of Dreams - README</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
+  <style>
+    /* Print styles for a clean printout */
+    @page {
+      size: A4;
+      margin: 2cm;
+    }
+
+    @media print {
+      body {
+        background: white;
+        color: black;
+        -webkit-print-color-adjust: exact; /* Ensures backgrounds and colors print as seen */
+      }
+      .page {
+        background-color: white; /* Ensure pages are white in print */
+        color: black;
+        box-shadow: none; /* Remove shadow in print */
+      }
+      img {
+        max-width: 100%; /* Ensure images don't overflow in print */
+        height: auto;
+      }
+    }
+
+    /* Custom font for specific text formatting */
+    @font-face {
+      font-family: 'NAMU Pro';
+      src: url('https://rawcdn.githack.com/Anacondas2288/fonts/main/NAMU-Pro.woff2') format('woff2');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    /* Basic body styling for dark theme */
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 1.2em;
+      background-color: rgb(23, 26, 25);
+      color: white;
+      padding: 1em;
+      margin: 0;
+      display: flex; /* Use flexbox for centering content */
+      justify-content: center; /* Center horizontally */
+      align-items: flex-start; /* Align to the top vertically */
+      min-height: 100vh; /* Minimum height to take full viewport */
+    }
+
+    /* Container for the README content, mimicking a page */
+    .page {
+      page-break-after: always; /* For print purposes */
+      padding: 2cm;
+      background-color: rgb(23, 26, 25);
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      max-width: 800px; /* Max width for readability on larger screens */
+      width: 100%; /* Take full width on smaller screens */
+      box-sizing: border-box; /* Include padding in width calculation */
+    }
+
+    /* Styling for headings */
+    h1, h2, h3 {
+      font-family: "Open Sans", sans-serif;
+      margin-top: 1.2em;
+      color: #66ccff; /* A vibrant blue for headings */
+    }
+
+    /* Styling for inline code snippets */
+    code {
+      background-color: #333;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #e0e0e0;
+    }
+
+    /* Styling for pre-formatted code blocks */
+    pre {
+      background-color: #2d2d2d;
+      color: #eee;
+      padding: 1em;
+      border-radius: 6px;
+      overflow-x: auto; /* Enable horizontal scrolling for long lines */
+      white-space: pre-wrap; /* Wrap long lines within the block */
+      font-size: 0.9em;
+      margin-bottom: 1em;
+    }
+
+    /* Styling for links */
+    a {
+      color: #66ccff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Styling for images to ensure responsiveness and presentation */
+    img {
+      max-width: 100%; /* Ensures images are responsive and don't overflow */
+      height: auto; /* Maintains aspect ratio */
+      display: block; /* Removes extra space below image */
+      margin: 1em auto; /* Center images and add vertical spacing */
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Styling for paragraphs and lists for better readability */
+    p {
+        margin-bottom: 1em;
+        line-height: 1.6;
+    }
+    ul, ol {
+        margin-bottom: 1em;
+        padding-left: 2em;
+    }
+    li {
+        margin-bottom: 0.5em;
+    }
+
+    /* Custom text formatting classes for specific character styling */
+    .open-sans {
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    .namu-text {
+      font-family: 'NAMU Pro', sans-serif;
+      font-feature-settings: "ss03" 1; /* Enable stylistic set 2 */
+      font-variant-alternates: stylistic(ss03); /* Optional fallback */
+    }
+  </style>
+</head>
+<body>
+  <div class="page" id="readme-page">
+    <h2>Loading README content...</h2>
+  </div>
+
+  <script>
+    /**
+     * Defines utilities for image management, primarily for constructing image URLs.
+     * It no longer holds a fixed list of image filenames, but rather the logic
+     * for building the full GitHub raw content URL based on a given filename.
+     */
+    const ImageConstants = { // Renamed from ImageConstants to ImageUtils might be more accurate, but keeping as requested
+      /**
+       * Constructs the full raw GitHub URL for a given image filename.
+       * Assumes images are located in `https://raw.githubusercontent.com/nowxel/Namu_pro/main/namu/images/`.
+       * This path is hardcoded based on your specific repo structure.
+       * If your repo structure changes, this URL prefix needs to be updated.
+       * @param {string} filename The exact filename of the image (e.g., 'sandman.jpeg').
+       * @returns {string} The full raw URL of the image.
+       * @throws {Error} If the filename is not provided or is invalid.
+       */
+      getUrl(filename) {
+        if (!filename || typeof filename !== 'string' || filename.trim() === '') {
+          throw new Error(`Invalid filename provided to ImageConstants.getUrl: "${filename}"`);
+        }
+        // This hardcoded prefix ensures the correct path to your images in the GitHub raw content.
+        return `https://raw.githubusercontent.com/nowxel/Namu_pro/main/namu/images/${filename}`;
+      },
+    };
+
+    /**
+     * Fetches raw Markdown content from a GitHub URL.
+     * It correctly transforms the 'github.com/user/repo/blob/branch/path/to/file.md'
+     * URL into its raw equivalent 'raw.githubusercontent.com/user/repo/branch/path/to/file.md'.
+     * @param {string} url The GitHub URL of the README.md file.
+     * @returns {Promise<string|null>} The raw Markdown content as a string, or null if fetching fails.
+     */
+    async function fetchGitHubReadme(url) {
+      try {
+        const rawUrl = url
+          .replace('github.com', 'raw.githubusercontent.com')
+          .replace('/blob/', '/'); // Converts to raw content URL
+        const response = await fetch(rawUrl);
+        if (!response.ok) {
+            console.error(`Failed to fetch README: ${response.status} ${response.statusText}`);
+            throw new Error('Failed to fetch README');
+        }
+        return await response.text();
+      } catch (error) {
+        console.error('Error fetching GitHub README:', error);
+        return null;
+      }
+    }
+
+    /**
+     * A basic Markdown to HTML converter. This function is designed to handle common Markdown
+     * elements such as headings, bold/italics, inline code, code blocks, images, and links.
+     * It now also supports custom image placeholders using ImageConstants.getUrl().
+     *
+     * @param {string} markdown The Markdown string to convert.
+     * @returns {string} The HTML string converted from Markdown.
+     */
+    function markdownToHtml(markdown) {
+      let html = markdown;
+
+      // 1. Convert custom Image Placeholders: [[IMAGE:filename.jpg]]
+      // This allows using the actual filename directly in README.md.
+      // The regex `([a-zA-Z0-9\-\._]+)` captures common filename characters.
+      html = html.replace(/\[\[IMAGE:([a-zA-Z0-9\-\._]+)\]\]/g, (match, filename) => {
+        try {
+          // Use ImageConstants.getUrl to get the full raw GitHub URL for the image.
+          const imageUrl = ImageConstants.getUrl(filename);
+          // Alt and title text are set to the filename for simplicity.
+          // You could extend the placeholder syntax (e.g., [[IMAGE:filename.jpg | Alt Text | Title Text]])
+          // if you need custom alt/title from Markdown.
+          return `<img src="${imageUrl}" alt="${filename}" title="${filename}">`;
+        } catch (error) {
+          console.warn(`Error processing image placeholder [[IMAGE:${filename}]]: ${error.message}`);
+          return `[Image ${filename} not found or URL error]`; // Fallback for invalid placeholder/filename
+        }
+      });
+
+
+      // 2. Convert standard Markdown Images: ![alt text](url "optional title")
+      // This regex captures alt text (Group 1), URL (Group 2), and an optional title (Group 3).
+      html = html.replace(/!\[(.*?)\]\((.*?)(?:\s+"(.*?)")?\)/g, '<img src="$2" alt="$1" title="$3">');
+
+      // 3. Convert Code Blocks: ```code```
+      // This step is crucial and must be performed before processing general newlines,
+      // to prevent `<br>` tags from being inserted inside `<pre>` blocks.
+      html = html.replace(/```([\s\S]*?)```/g, '<pre>$1</pre>');
+
+      // 4. Convert Headings: # H1, ## H2, ### H3 (and other levels if needed)
+      // The `gm` flags enable global matching and multi-line mode for `^` (start of line).
+      html = html.replace(/^### (.*?)$/gm, '<h3>$1</h3>');
+      html = html.replace(/^## (.*?)$/gm, '<h2>$1</h2>');
+      html = html.replace(/^# (.*?)$/gm, '<h1>$1</h1>');
+
+      // 5. Convert Horizontal Rules (---, ***, or ---)
+      html = html.replace(/^[*-]{3,}\s*$/gm, '<hr>');
+
+      // 6. Convert Lists (basic support for unordered lists)
+      // This is a simplified regex; full list parsing (especially nested lists) is more complex.
+      html = html.replace(/^\s*[-*+] (.*)$/gm, '<li>$1</li>');
+      // Wrap generated list items in <ul> or <ol> tags. This attempts to group consecutive <li>s.
+      // The `(?=(<p>|<h[1-6]>|<pre>|<hr>|<br>|<ul>|<ol>|$))` is a positive lookahead to stop matching
+      // when another block-level element or end of string is encountered.
+      html = html.replace(/(<li>.*?<\/li>[\s\S]*?)(?=(<p>|<h[1-6]>|<pre>|<hr>|<br>|<ul>|<ol>|$))/g, (match, p1) => {
+          // Check if it's already inside a list, to prevent double wrapping if the regex is too broad
+          if (p1.trim().startsWith('<li')) {
+              return '<ul>' + p1 + '</ul>';
+          }
+          return p1;
+      });
+
+
+      // 7. Convert Inline Formatting: **bold**, *emphasis*, `inline code`
+      html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+      // Inline code conversion. This should not conflict with code blocks due to processing order.
+      html = html.replace(/`([^`\n]+)`/g, '<code>$1</code>');
+
+      // 8. Convert General Links: [text](url)
+      // Using a negative lookbehind `(?<!\!)` to ensure we don't re-match image links
+      // that have already been converted to `<img>` tags.
+      html = html.replace(/(?<!\!)\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>');
+
+      // 9. Specific Math Link Conversion (as per your original script, ensure this order is correct if it conflicts with general links)
+      html = html.replace(/\$begin:math:display\$([^$end:math:display$]+)\]\$begin:math:text\$([^)]+)\$end:math:text\$/g, '<a href="$2" target="_blank">$1</a>');
+
+      // 10. Convert Paragraphs and Line Breaks
+      // This is a common but tricky part of Markdown parsing.
+      // Split the HTML by double newlines, treating each segment as a potential paragraph.
+      const segments = html.split(/\n{2,}/);
+      html = segments.map(s => {
+        // Trim whitespace from the segment
+        s = s.trim();
+        if (!s) return ''; // Skip empty segments
+
+        // Check if the segment already starts with a block-level HTML tag (e.g., h1, pre, ul, img, hr)
+        // that should not be wrapped inside a <p> tag. This is a basic check.
+        const startsWithBlockTag = /^(<h[1-6]>|<pre>|<ul>|<ol>|<img|<hr>)/i.test(s);
+        if (startsWithBlockTag) {
+            // If it's a block tag, return it as is.
+            // Remove any leading/trailing <br> that might have been added inadvertently during earlier processing.
+            return s.replace(/<br>\s*$/, '').replace(/^\s*<br>/, '');
+        }
+        // If it's not a block tag, replace single newlines with <br> and wrap in <p> tags.
+        const processedSegment = s.replace(/\n/g, '<br>');
+        return `<p>${processedSegment}</p>`;
+      }).join('');
+
+      return html;
+    }
+
+    /**
+     * Converts specific Cyrillic characters to their Gothic equivalents
+     * based on a predefined mapping. This function is applied after Markdown
+     * conversion to modify the rendered text content.
+     * @param {string} input The string containing Cyrillic characters to convert.
+     * @returns {string} The string with converted characters.
+     */
+    function cyrillicToGothic(input) {
+      const cyrillic = 'АВКДЄБЦҐҺИЇГЛМНОПЖРСТЮФХѲǶЧІйЗіьичу';
+      const gothic = [
+        '𐌰', '𐌱', '𐌺', '𐌳', '𐌴', 'Ⰱ', '?', '𐌾', '𐌷', '�', '𐌹̈',
+        '𐌲', '𐌻', '𐌼', '𐌽', '𐍉', '𐍀', '𐌵', '𐍂', 'Σ', '𐍄', '𐌿', '𐍅', '𐍇', '𐌸',
+        '𐍈', '𐍁', '𐍊', 'й', '𐍃', 'і', 'ь', 'и', 'ҁ', 'ꙋ'
+      ];
+
+      let result = '';
+      for (const char of input) {
+        const index = cyrillic.indexOf(char);
+        if (index !== -1 && index < gothic.length) {
+          result += gothic[index];
+        } else {
+          result += char; // Leave unchanged (including existing Gothic letters)
+        }
+      }
+      return result;
+    }
+
+    // Main script execution when the DOM is fully loaded.
+    document.addEventListener("DOMContentLoaded", async function () {
+      // Define the GitHub README URL. Ensure this points to your specific README.md.
+      const readmeUrl = 'https://github.com/nowxel/Namu_pro/blob/main/namu/README.md';
+      const container = document.getElementById('readme-page');
+
+      // Fetch the raw Markdown content
+      const readmeContent = await fetchGitHubReadme(readmeUrl);
+
+      if (readmeContent && container) {
+        // Step 1: Convert Markdown to HTML.
+        // The markdownToHtml function now uses ImageConstants.getUrl() internally,
+        // so no need to pass external image constants here.
+        const htmlContent = markdownToHtml(readmeContent);
+        container.innerHTML = htmlContent;
+
+        // Step 2: Apply custom text formatting to the rendered HTML.
+        const textElements = document.querySelectorAll("#readme-page p, #readme-page h1, #readme-page h2, #readme-page h3, #readme-page li");
+
+        textElements.forEach(function (element) {
+          let processedHtml = element.innerHTML;
+
+          // Apply specific character replacements and styling
+          processedHtml = processedHtml.replace(/б/g, '<span class="open-sans" lang="mk">б</span>');
+          processedHtml = processedHtml.replace(/Б/g, '<span class="open-sans" lang="mk">Б</span>');
+          processedHtml = processedHtml.replace(/й/g, 'ј');
+          processedHtml = processedHtml.replace(/Й/g, 'Ј');
+          processedHtml = processedHtml.replace(/З/g, '𐍃');
+          processedHtml = processedHtml.replace(/ц/g, 'з');
+          processedHtml = processedHtml.replace(/Н/g, '<span class="namu-text">Н</span>');
+          processedHtml = processedHtml.replace(/н/g, '<span class="namu-text">н</span>');
+
+          // Apply Cyrillic to Gothic conversion.
+          processedHtml = cyrillicToGothic(processedHtml);
+
+          element.innerHTML = processedHtml; // Update the element's HTML
+        });
+
+      } else {
+        // Display an error message if content loading fails
+        if (container) {
+          container.innerHTML = "<p>Failed to load README content. Please check the URL or your network connection.</p>";
+        }
+      }
+    });
+  </script>
+</body>
+</html>
+�
