@@ -2,6 +2,8 @@
   Дивні, дивовижні і жахливі подорожі є нормою у снах. Незвідані землі приходять і йдуть. Епічність снів розігрується. Війни ведуться і виграються. Кохані втрачаються або знаходиться. Повністю инше життя проживається, коли ми спимо. І тоді ми прокидаємся з розчаруванням, або полегшенням, як ніби нічого не трапилось.
   Але інколи щось повинно трапитись.
 
+![Key Diagram for Namu Project](images/your-image-1.jpg "A detailed diagram illustrating the text transformations.")
+
   ![Sandman](https://www.everand.com/scepub/224259141/chapters/2/images/image-7YG0C6RX.jpg?token=1750143054_3I3UY77CBPHP4FIQQHCPWTCRJKDUBWVZMIHRQJH2FYUOBXLT7MVAJ2YXSZZQ2LW636XQ====_739d4223f332f34f9c3e8910c46fbc4d38afb37e "A diagram or image from Everand content")
 
   Наяву, Вартові втратили одного зі своїх на користь могутньої сутністи, відомої як мати-природа.
